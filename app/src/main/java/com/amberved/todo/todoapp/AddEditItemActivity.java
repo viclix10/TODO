@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,15 +43,18 @@ public class AddEditItemActivity extends ActionBarActivity {
 
         EditText etNewItem = (EditText) findViewById(R.id.etTodoText);
         etNewItem.setText(todo.getText());
-        EditText etNewPriority = (EditText) findViewById(R.id.etPriority);
-        etNewPriority.setText(Integer.toString(todo.getPriority()));
+
+        RatingBar priorityRating = (RatingBar) findViewById(R.id.ratingBar);
+        priorityRating.setMax(5);
+        priorityRating.setStepSize((float) 1.0);
+        priorityRating.setRating(Integer.valueOf(todo.getPriority()));
+
         mDueDateTextView = (TextView) findViewById(R.id.etDueDate);
         mDueDateTextView.setText(todo.getDueDate());
 
         mTodoLogoImageView = (ImageView) findViewById(R.id.imTodoLogo);
 
         etNewItem.setSelection(etNewItem.getText().length());
-        etNewPriority.setSelection(etNewPriority.getText().length());
 
         setupDueDateListener();
 
@@ -75,20 +79,18 @@ public class AddEditItemActivity extends ActionBarActivity {
 
     public void onClickSaveButton(View v) {
         EditText etNewItem = (EditText) findViewById(R.id.etTodoText);
-        EditText etNewPriority = (EditText) findViewById(R.id.etPriority);
+        RatingBar etNewPriority = (RatingBar) findViewById(R.id.ratingBar);
         EditText etDueDate = (EditText) findViewById(R.id.etDueDate);
 
+
         String todoText = etNewItem.getText().toString();
-        String todoPriority = etNewPriority.getText().toString();
+        int todoPriority = (int) etNewPriority.getRating();
         String todoDueDate = etDueDate.getText().toString();
 
         Intent newTodo = new Intent();
-        if (todoPriority.trim().isEmpty())
-        {
-            todoPriority = "0";
-        }
-        Todo todo = new Todo(todoText, Integer.valueOf(todoPriority), todoDueDate);
+        Todo todo = new Todo(todoText, todoPriority, todoDueDate);
         newTodo.putExtra("todo", todo);
+
 
         setResult(RESULT_OK, newTodo);
         finish();
@@ -167,9 +169,6 @@ public class AddEditItemActivity extends ActionBarActivity {
 
             ImageView imageView = (ImageView) findViewById(R.id.imTodoLogo);
             imageView.setImageBitmap(BitmapFactory.decodeFile(picturePath));
-
-            if (BuildConfig.DEBUG)
-                Toast.makeText(this, "ImagePath#"+picturePath, Toast.LENGTH_SHORT).show();
 
         }
     }

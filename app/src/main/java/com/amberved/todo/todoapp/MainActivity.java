@@ -44,14 +44,16 @@ public class MainActivity extends ActionBarActivity {
         mListViewTodos.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapter, View item, int pos, long id) {
-                Toast.makeText(MainActivity.this, "onLongClick", Toast.LENGTH_SHORT).show();
+            Todo todo = mTodosArrayList.get(pos);
 
-                Todo todo = mTodosArrayList.get(pos);
-                mTodoDatabase.delete(todo);
+            //if (BuildConfig.DEBUG)
+            //  Toast.makeText(MainActivity.this, "onLongClick", Toast.LENGTH_SHORT).show();
 
-                mTodosArrayList.remove(pos);
-                mAdapter.notifyDataSetChanged();
-                return true;
+            mTodoDatabase.delete(todo);
+            mTodosArrayList.remove(pos);
+            mAdapter.notifyDataSetChanged();
+
+            return true;
 
             }
         });
@@ -62,18 +64,18 @@ public class MainActivity extends ActionBarActivity {
             @Override
             public void onItemClick(AdapterView<?> adapter, View item, int pos, long id) {
 
-                Intent i = new Intent(MainActivity.this, AddEditItemActivity.class);
+            Intent i = new Intent(MainActivity.this, AddEditItemActivity.class);
+            Todo todo = mTodosArrayList.get(pos);
 
-                Todo todo = mTodosArrayList.get(pos);
-                mTodoDatabase.delete(todo);
-                mTodosArrayList.remove(pos);
-                mAdapter.notifyDataSetChanged();
+            mTodoDatabase.delete(todo);
+            mTodosArrayList.remove(pos);
+            mAdapter.notifyDataSetChanged();
 
-                i.putExtra("todo", todo);
-                startActivityForResult(i, REQUEST_CODE);
+            i.putExtra("todo", todo);
+            startActivityForResult(i, REQUEST_CODE);
 
-                if (BuildConfig.DEBUG)
-                    Toast.makeText(MainActivity.this, "OnClick", Toast.LENGTH_SHORT).show();
+            //if (BuildConfig.DEBUG)
+            //  Toast.makeText(MainActivity.this, "OnClick", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -117,8 +119,8 @@ public class MainActivity extends ActionBarActivity {
                 mAdapter.add(todo);
                 mAdapter.notifyDataSetChanged();
                 mTodoDatabase.add(todo);
-                if (BuildConfig.DEBUG)
-                    Toast.makeText(this, "New Todo" + todoText, Toast.LENGTH_SHORT).show();
+                //if (BuildConfig.DEBUG)
+                //    Toast.makeText(this, "New Todo" + todoText, Toast.LENGTH_SHORT).show();
             }
         }
     }

@@ -16,17 +16,16 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true" />
 
-    <EditText
+    <RatingBar
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/etPriority"
-        android:hint="Enter Todo Priority (default = 0)"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/lblEditTodo"
-        android:text=""
-        android:numeric="integer"
-        android:inputType="number"
-        android:layout_alignEnd="@+id/etTodoText" />
+        android:id="@+id/ratingBar"
+        android:numStars="@integer/maxTodoPriority"
+        android:stepSize="1.0"
+        android:rating="3.0"
+        android:max="@integer/maxTodoPriority"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/lblEditTodo" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -34,7 +33,7 @@
         android:id="@+id/etTodoText"
         android:hint="Enter a new Todo"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/etPriority"
+        android:layout_below="@+id/ratingBar"
         android:text=""
         android:layout_alignEnd="@+id/etDueDate" />
 
@@ -81,5 +80,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentStart="true" />
+
+
 
 </RelativeLayout>
