@@ -9,16 +9,16 @@ public class Todo implements Serializable {
 
     private String mText;
     private int mPriority;
-    private int mId;
+    private long mId;
     private String mDueDate;
 
     private static final long serialVersionUID = 5177222050535318633L;
 
-    public int getId() {
+    public long getId() {
         return mId;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.mId = id;
     }
 

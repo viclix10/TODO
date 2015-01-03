@@ -116,9 +116,9 @@ public class MainActivity extends ActionBarActivity {
             String todoText = todo.getText().trim();
 
             if (!todoText.isEmpty()) {
+                mTodoDatabase.add(todo);
                 mAdapter.add(todo);
                 mAdapter.notifyDataSetChanged();
-                mTodoDatabase.add(todo);
                 //if (BuildConfig.DEBUG)
                 //    Toast.makeText(this, "New Todo" + todoText, Toast.LENGTH_SHORT).show();
             }

@@ -54,7 +54,8 @@ public class TodoSQLiteHelper extends SQLiteOpenHelper {
         values.put(KEY_BODY, todo.getText());
         values.put(KEY_PRIORITY, todo.getPriority());
         values.put(KEY_DATE, todo.getDueDate());
-        db.insert(TABLE_TODO, null, values);
+        long id = db.insert(TABLE_TODO, null, values);
+        todo.setId(id);
         db.close();
     }
 
@@ -115,9 +116,6 @@ public class TodoSQLiteHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_TODO, KEY_ID + " = ?",
                 new String[] { String.valueOf(todo.getId()) });
-
-        Log.d(TAG, "Trying to remove from database #" + todo.getId());
-
         db.close();
     }
 
